@@ -15,7 +15,9 @@ const io = new Server(server, {
 
 app.use(cors());
 app.use(express.json());
-
+app.get("/", (req, res) => {
+    res.send("Backend is running smoothly!");
+});
 io.on("connection", (socket) => {
   console.log("A user connected");
 
