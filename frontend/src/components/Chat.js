@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap
 import "../App.css"; // Import custom styles
 
-const socket = io("http://localhost:5000");
+const socket = io("https://chatbot-1-f96n.onrender.com");
 
 function Chat() {
   const [message, setMessage] = useState("");
