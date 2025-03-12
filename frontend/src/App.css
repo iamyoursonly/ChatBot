@@ -3,7 +3,14 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(45deg, #ff9a9e, #fad0c4, #ffdde1, #a18cd1, #fbc2eb);
+  background: linear-gradient(
+    45deg,
+    #ff9a9e,
+    #fad0c4,
+    #ffdde1,
+    #a18cd1,
+    #fbc2eb
+  );
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,7 +20,7 @@ body {
 /* Chat Container */
 .chat-container {
   width: 100%;
-  max-width: flex;
+  max-width: 600px; /* Adjusted for proper layout */
   height: 90vh;
   background: rgba(255, 255, 255, 0.9);
   padding: 20px;
@@ -33,15 +40,15 @@ body {
 
 /* Chat Box */
 .chat-box {
-  flex-grow: 100;
+  flex-grow: 1; /* Allows it to expand properly */
   overflow-y: auto;
   background: white;
   border-radius: 10px;
   padding: 10px;
   border: 1px solid #ddd;
-  resize: both;
+  resize: vertical; /* Allows only height resizing */
   min-height: 300px;
-  max-height: 100vh;
+  max-height: 80vh;
 }
 
 /* Chat Messages */
@@ -50,11 +57,12 @@ body {
   padding: 10px;
   margin: 5px 0;
   border-radius: 10px;
+  word-wrap: break-word; /* Ensures long words don't break the layout */
 }
 
 /* User Message */
 .user-message {
-  background: #4CAF50;
+  background: #4caf50;
   color: white;
   align-self: flex-end;
   text-align: right;
@@ -62,7 +70,7 @@ body {
 
 /* Bot Message */
 .bot-message {
-  background: #2196F3;
+  background: #2196f3;
   color: white;
   align-self: flex-start;
 }
@@ -112,7 +120,7 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
   .chat-container {
-    width: 100%;
+    width: 95%;
     height: 95vh;
   }
 
@@ -128,3 +136,39 @@ body {
     padding: 10px 15px;
   }
 }
+
+.result-image {
+  display: flex;
+  width: 200px; /* Fixed width */
+  height: 200px; /* Fixed height */
+  object-fit: cover; /* Ensures it maintains aspect ratio and fills */
+  border-radius: 10px; /* Optional: adds rounded corners */
+  margin-top: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.result-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  background-color: white; /* Adds padding around the image */
+}
+.message {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers everything inside */
+}
+.result-image {
+  display: block;
+  margin: 10px auto; /* Centers horizontally */
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+/* new */
+
+/* hello*/
