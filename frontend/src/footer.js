@@ -4,7 +4,7 @@ const Footer = () => {
   const [visitorCount, setVisitorCount] = useState(0);
 
   useEffect(() => {
-    fetch("https://your-backend-url.onrender.com/visitor-count")
+    fetch("https://chatbot-1-f96n.onrender.com/visitor-count")
       .then(response => {
         console.log("Response received:", response); // Debug log
         return response.json(); // Ensure JSON parsing
