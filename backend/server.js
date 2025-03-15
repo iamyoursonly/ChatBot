@@ -36,18 +36,28 @@ io.on("connection", (socket) => {
     console.log("User disconnected");
   });
 });
+// Path to the counter.txt file
+const counterFile = path.join(__dirname, "counter.txt");
+
+// Ensure counter.txt exists
+if (!fs.existsSync(counterFile)) {
+    fs.writeFileSync(counterFile, "0");
+}
+
 app.get("/visitor-count", (req, res) => {
-    console.log("Visitor count API called"); // Log API call
-    let count = 0;
+    console.log("Visitor count API hit"); // Debugging log
 
-    if (fs.existsSync("counter.txt")) {
-        count = parseInt(fs.readFileSync("counter.txt", "utf8"));
+    try {
+        let count = parseInt(fs.readFileSync(counterFile, "utf8")) || 0;
+        count++;
+
+        fs.writeFileSync(counterFile, count.toString());
+
+        res.json({ count }); // ✅ Ensure response is JSON
+    } catch (error) {
+        console.error("Error reading/writing counter file:", error);
+        res.status(500).json({ error: "Internal Server Error" });
     }
-
-    count++;
-    fs.writeFileSync("counter.txt", count.toString());
-
-    res.json({ count });
 });
 
 
