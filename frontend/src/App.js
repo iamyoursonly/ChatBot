@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-
+import Footer from "./footer"
 const socket = io("https://chatbot-1-f96n.onrender.com");
 
 function Chat() {
@@ -63,6 +63,7 @@ function Chat() {
         />
         <button className="chat-send-btn" onClick={sendMessage}>Send 🚀</button>
       </div>
+            <Footer />
     </div>
   );
 }
