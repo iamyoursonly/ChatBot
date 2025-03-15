@@ -3,6 +3,7 @@ const fs = require("fs");
 const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
+const axios = require("axios");
 const { searchGoogle } = require("./utils/openaiService"); // ✅ Correct import
 const path = require("path"); // ✅ Add this line
 
@@ -59,6 +60,22 @@ app.get("/visitor-count", (req, res) => {
         console.error("Error reading/writing counter file:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
+});
+// Corrected Google Apps Script Request
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQmxBzI_tdsDnepwCuxxb7_NOjwxMkUmFJEPJYs_nZSJsb-nSWfDOwkv6FX5lqneTt/exec";
+
+app.post("/save-name", async (req, res) => {
+  const { name } = req.body;
+  if (!name) return res.status(400).json({ message: "Name is required" });
+
+  try {
+    const response = await axios.post(GOOGLE_SCRIPT_URL, { name });
+    console.log("Google Script Response:", response.data); // Debugging log
+    res.json({ message: "Name saved successfully" });
+  } catch (error) {
+    console.error("Error saving name:", error.response?.data || error.message);
+    res.status(500).json({ message: "Error saving name" });
+  }
 });
 
 
