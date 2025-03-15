@@ -45,7 +45,7 @@ function Chat()
       return;
     }
     try {
-      const response = await fetch("http://localhost:5000/save-name", {
+      const response = await fetch("https://chatbot-1-f96n.onrender.com", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: userInput }),
@@ -61,11 +61,6 @@ function Chat()
         console.error("Error:", error);
     }
 };
-
-    
-  
- 
-  
 
   return (
     <div className={`chat-container ${darkMode ? "dark-mode" : "light-mode"}`}>
