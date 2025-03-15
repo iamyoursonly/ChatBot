@@ -4,6 +4,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
 const { searchGoogle } = require("./utils/openaiService"); // ✅ Correct import
+const path = require("path"); // ✅ Add this line
 
 const app = express();
 const server = http.createServer(app);
