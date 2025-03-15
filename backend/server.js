@@ -38,7 +38,7 @@ io.on("connection", (socket) => {
   });
 });
 // Path to the counter.txt file
-const counterFile = path.join(__dirname, "counter.txt");
+const counterFile = path.join(__dirname, "counter.json");
 
 // Ensure counter.txt exists
 if (!fs.existsSync(counterFile)) {
