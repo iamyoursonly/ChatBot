@@ -19,7 +19,7 @@ const Footer = () => {
   return (
     <footer style={{ textAlign: "center", padding: "20px", background: "#333", color: "#fff" }}>
       <p>Visitors: {visitorCount}</p>
-      <p>&copy; {new Date().getFullYear()} Your Website</p>
+      <p>&copy; {new Date().getFullYear()} AMIT MISHRA</p>
     </footer>
   );
 };
