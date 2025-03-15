@@ -1,4 +1,5 @@
 const express = require("express");
+const fs = require("fs");
 const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
@@ -35,6 +36,20 @@ io.on("connection", (socket) => {
     console.log("User disconnected");
   });
 });
+app.get("/visitor-count", (req, res) => {
+    console.log("Visitor count API called"); // Log API call
+    let count = 0;
+
+    if (fs.existsSync("counter.txt")) {
+        count = parseInt(fs.readFileSync("counter.txt", "utf8"));
+    }
+
+    count++;
+    fs.writeFileSync("counter.txt", count.toString());
+
+    res.json({ count });
+});
+
 
 const PORT = 5000;
 server.listen(PORT, () => {
