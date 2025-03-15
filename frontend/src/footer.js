@@ -2,18 +2,19 @@ import React, { useEffect, useState } from "react";
 
 const Footer = () => {
   const [visitorCount, setVisitorCount] = useState(0);
-  const [hasFetched, setHasFetched] = useState(false); // Prevent double fetch
 
   useEffect(() => {
-    if (!hasFetched) {
-      fetch("https://chatbot-1-f96n.onrender.com") // Adjust to your backend URL in production
-        .then((response) => response.json())
-        .then((data) => setVisitorCount(data.count))
-        .catch((error) => console.error("Error fetching visitor count:", error));
-      
-      setHasFetched(true);
-    }
-  }, [hasFetched]);
+    fetch("https://your-backend-url.onrender.com/visitor-count")
+      .then(response => {
+        console.log("Response received:", response); // Debug log
+        return response.json(); // Ensure JSON parsing
+      })
+      .then(data => {
+        console.log("Visitor count:", data);
+        setVisitorCount(data.count);
+      })
+      .catch(error => console.error("Error fetching visitor count:", error));
+  }, []);
 
   return (
     <footer style={{ textAlign: "center", padding: "20px", background: "#333", color: "#fff" }}>
