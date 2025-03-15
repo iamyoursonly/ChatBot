@@ -45,7 +45,7 @@ function Chat()
       return;
     }
     try {
-      const response = await fetch("https://chatbot-1-f96n.onrender.com", {
+      const response = await fetch("https://chatbot-1-f96n.onrender.com/save-name", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: userInput }),
