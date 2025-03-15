@@ -5,10 +5,17 @@ import "./App.css";
 import Footer from "./footer"
 const socket = io("https://chatbot-1-f96n.onrender.com");
 
-function Chat() {
+function Chat() 
+{
+  const [userInput, setUserInput] = useState(""); 
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [darkMode, setDarkMode] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(true);
+
+  useEffect(() => {
+    setIsPopupOpen(true); // ✅ Always open popup on page load
+  }, []);
 
   useEffect(() => {
     socket.on("connect", () => console.log("✅ Connected to server"));
@@ -31,8 +38,68 @@ function Chat() {
     setMessage("");
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!userInput) {
+      console.error("Error: Name field is empty!");
+      return;
+    }
+    try {
+      const response = await fetch("http://localhost:5000/save-name", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: userInput }),
+      });
+      if (!response.ok) {
+        const errorMessage = await response.json();
+        throw new Error(errorMessage.error || "Failed to save name");
+      }
+         console.log("Name saved successfully!");
+         
+          setIsPopupOpen(false);
+    } catch (error) {
+        console.error("Error:", error);
+    }
+};
+
+    
+  
+ 
+  
+
   return (
     <div className={`chat-container ${darkMode ? "dark-mode" : "light-mode"}`}>
+      {isPopupOpen && (
+        <div className="popup-overlay" style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(0, 0, 0, 0.8)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 9999
+        }}>
+          <div className="popup-box" style={{
+            backgroundColor: "white",
+            padding: "20px",
+            borderRadius: "10px",
+            textAlign: "center"
+          }}>
+            <h2>Enter Your Name</h2>
+            <input
+              type="text"
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+              placeholder="Your Name"
+              style={{ padding: "10px", width: "80%", marginBottom: "10px" }}
+            />
+            <button onClick={handleSubmit} style={{ padding: "10px 20px", backgroundColor: "blue", color: "white", border: "none", cursor: "pointer" }}>Submit</button>
+          </div>
+        </div>
+      )}
       <div className="chat-header">
         <h1 className="chat-title">💬 ASBOTS</h1>
         <button className="toggle-mode" onClick={() => setDarkMode(!darkMode)}>
@@ -63,9 +130,10 @@ function Chat() {
         />
         <button className="chat-send-btn" onClick={sendMessage}>Send 🚀</button>
       </div>
-            <Footer />
+      <Footer />
     </div>
   );
 }
 
 export default Chat;
+
